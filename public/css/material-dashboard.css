@@ -5066,3 +5066,7 @@ footer .btn {
 #add-drug {
   margin-top: -5px;
 }
+#calendar {
+  float: right;
+  margin-top: -30px;
+}

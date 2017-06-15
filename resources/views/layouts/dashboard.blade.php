@@ -13,9 +13,12 @@
 
     <!-- Bootstrap core CSS     -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/easy-autocomplete.min.css') }}" rel="stylesheet">
+{{--    <link href="{{ asset('css/easy-autocomplete.min.themes.css') }}" rel="stylesheet">--}}
 
     <!--  Material Dashboard CSS    -->
     <link href="{{ asset('css/material-dashboard.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/daterangepicker.css') }}" rel="stylesheet">
 
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -143,32 +146,21 @@
 
 <!--   Core JS Files   -->
 <script src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="{{ asset('js/moment.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/material.min.js') }}"></script>
 <script src="{{ asset('js/chartist.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap-notify.js') }}"></script>
-<script src="{{ asset('js/material-dashboard.js') }}"></script>
-
-<!--  Charts Plugin -->
-<script src="../assets/js/chartist.min.js"></script>
-
-<!--  Notifications Plugin    -->
-<script src="../assets/js/bootstrap-notify.js"></script>
-
-<!--  Google Maps Plugin    -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
-
-<!-- Material Dashboard javascript methods -->
-<script src="../assets/js/material-dashboard.js"></script>
+<script src="{{ asset('js/material-dashboard.js') }}"></script>
 
 
 <script type="text/javascript">
     $(document).ready(function(){
-
         // Javascript method's body can be found in assets/js/demos.js
         demo.initDashboardPageCharts();
 
     });
 </script>
-
+@yield('scripts')
 </html>

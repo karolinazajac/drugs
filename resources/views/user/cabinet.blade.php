@@ -62,14 +62,14 @@
             </div>
             <div class="modal-body">
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('add-drug') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('add-drug') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Nazwa</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="name" class="form-control" name="name" required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -79,46 +79,54 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail</label>
+                        <div class="form-group{{ $errors->has('quantity') ? ' has-error' : '' }}">
+                            <label for="quantity" class="col-md-4 control-label">Ilość</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="quantity" type="number" class="form-control" name="quantity" value="{{ old('quantity') }}" required>
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('quantity'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('quantity') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Hasło</label>
+                        <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
+                            <label for="date" class="col-md-4 control-label">Data ważności</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
 
-                                @if ($errors->has('password'))
+                                    <input type="text" id="date" name="date" class="form-control" required>
+                                    <i class="glyphicon glyphicon-calendar fa fa-calendar" id="calendar"></i>
+
+                                @if ($errors->has('date'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <strong>{{ $errors->first('date') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Potwierdź hasło</label>
+                        <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
+                            <label for="price" class="col-md-4 control-label">Cena</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                <input id="price" type="number" class="form-control" name="price" value="{{ old('price') }}" required>
+
+                                @if ($errors->has('price'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('price') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Załóż konto
+                                    Dodaj lek
                                 </button>
                             </div>
                         </div>
@@ -127,5 +135,35 @@
         </div>
     </div>
 </div>
+</div>
 <!--  End Modal -->
-    @endsection
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/moment.min.js') }}"></script>
+    <script src="{{ asset('js/daterangepicker.js') }}"></script>
+    <script src="{{ asset('js/jquery.easy-autocomplete.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#date').daterangepicker({
+                "singleDatePicker": true,
+                "showDropdowns": true,
+                "alwaysShowCalendars": true,
+                "startDate": "06/09/2017",
+                "endDate": "06/15/2017",
+                "drops": "up"
+            }, function(start, end, label) {
+                console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
+            });
+
+            var options = {
+                data: ["blue", "green", "pink", "red", "yellow"]
+            };
+            $("#name").easyAutocomplete(options);
+            $('.easy-autocomplete').width('100%');
+
+
+        })
+    </script>
+@endsection
