@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/Code/drugs":{"type":null,"mount_options":["uid=1000","gid=1000"],"guestpath":"/home/vagrant/Code/drugs","hostpath":"C:/Users/Karolina/Desktop/Pan Magister/drugs","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/Users/Karolina/Desktop/Pan Magister/drugs","disabled":false,"__vagrantfile":true}}}
