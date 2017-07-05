@@ -47,7 +47,7 @@
                 <li class="{{ Request::segment(1)==='home' ? 'active' : ''}}">
                     <a href="{{ url('home') }}">
                         <i class="material-icons">dashboard</i>
-                        <p>Dashboard</p>
+                        <p>Tablica</p>
                     </a>
                 </li>
                 <li class="{{ Request::segment(1)==='users' ? 'active' : ''}}">
@@ -133,9 +133,7 @@
         <footer class="footer">
             <div class="container-fluid">
 
-                <p class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
-                </p>
+
             </div>
         </footer>
     </div>

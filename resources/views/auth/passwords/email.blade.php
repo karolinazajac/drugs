@@ -25,14 +25,15 @@
 <nav class="navbar navbar-transparent navbar-absolute">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
+        <div class="navbar-header" id="logo">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://www.creative-tim.com">Creative Tim</a>
+            <img src='/img/logo.png' alt="no logo">
+            <a class="navbar-brand" href="#">Happy Drugs</a>
         </div>
 
         <div class="collapse navbar-collapse" id="navigation-example">
@@ -89,7 +90,7 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
                     <div class="card card-signup">
-                <div class="panel-heading">Reset Password</div>
+                <div class="panel-heading">Zresetuj hasło</div>
                 <div class="panel-body">
                     @if (session('status'))
                         <div class="alert alert-success">
@@ -101,7 +102,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                            <label for="email" class="col-md-4 control-label">E-Mail</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
@@ -117,7 +118,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Send Password Reset Link
+                                    Wyślij link resetujący hasło
                                 </button>
                             </div>
                         </div>
@@ -128,37 +129,7 @@
             </div>
         </div>
 
-        <footer class="footer">
-            <div class="container">
-                <nav class="pull-left">
-                    <ul>
-                        <li>
-                            <a href="http://www.creative-tim.com">
-                                Creative Tim
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://presentation.creative-tim.com">
-                                About Us
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://blog.creative-tim.com">
-                                Blog
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://www.creative-tim.com/license">
-                                Licenses
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="copyright pull-right">
-                    &copy; 2016, made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com" target="_blank">Creative Tim</a>
-                </div>
-            </div>
-        </footer>
+
 
     </div>
 
