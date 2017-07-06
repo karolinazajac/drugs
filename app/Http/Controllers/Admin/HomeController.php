@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -25,9 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->isAdmin()){
-            return redirect('/admin/home');
-        }
-        return view('user.home');
+        return view('admin.home');
     }
 }

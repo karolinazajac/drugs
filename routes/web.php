@@ -23,3 +23,7 @@ Route::get('/cabinet', 'User\CabinetController@index');
 Route::get('/timetable', 'User\TimetableController@index');
 Route::get('/diary', 'User\DiaryController@index');
 Route::get('/stats', 'User\StatisticsController@index');
+
+Route::group(['middleware' => ['admin']], function () {
+    Route::get('/admin/home', 'Admin\HomeController@index');
+});
