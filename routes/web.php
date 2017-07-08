@@ -26,4 +26,8 @@ Route::get('/stats', 'User\StatisticsController@index');
 
 Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin/home', 'Admin\HomeController@index');
+    Route::get('/admin/users', 'Admin\UsersController@index');
+    Route::get('/admin/cabinets', 'Admin\CabinetsController@index');
+    Route::get('/admin/drugs', 'Admin\DrugsController@index');
+    Route::post('/admin/drugs', 'Admin\DrugsController@importExcel');
 });

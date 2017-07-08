@@ -44,40 +44,28 @@
 
         <div class="sidebar-wrapper">
             <ul class="nav">
-                <li class="{{ Request::segment(1)==='home' ? 'active' : ''}}">
-                    <a href="{{ url('home') }}">
+                <li class="{{ Request::segment(2)==='home' ? 'active' : ''}}">
+                    <a href="{{ url('admin/home') }}">
                         <i class="material-icons">dashboard</i>
                         <p>Tablica</p>
                     </a>
                 </li>
-                <li class="{{ Request::segment(1)==='users' ? 'active' : ''}}">
-                    <a href="{{ url('users') }}">
+                <li class="{{ Request::segment(2)==='users' ? 'active' : ''}}">
+                    <a href="{{ url('admin/users') }}">
                         <i class="material-icons">group</i>
                         <p>Użytkownicy</p>
                     </a>
                 </li>
-                <li class="{{ Request::segment(1)==='cabinet' ? 'active' : ''}}">
-                    <a href="{{ url('cabinet') }}">
+                <li class="{{ Request::segment(2)==='cabinets' ? 'active' : ''}}">
+                    <a href="{{ url('admin/cabinets') }}">
                         <i class="material-icons">local_hospital</i>
-                        <p>Apteczka</p>
+                        <p>Apteczki</p>
                     </a>
                 </li>
-                <li class="{{ Request::segment(1)==='timetable' ? 'active' : ''}}">
-                    <a href="{{ url('timetable') }}">
-                        <i class="material-icons">today</i>
-                        <p>Terminarz</p>
-                    </a>
-                </li>
-                <li class="{{ Request::segment(1)==='diary' ? 'active' : ''}}">
-                    <a href="{{ url('diary') }}">
-                        <i class="material-icons">book</i>
-                        <p>Dziennik</p>
-                    </a>
-                </li>
-                <li class="{{ Request::segment(1)==='stats' ? 'active' : ''}}">
-                    <a href="{{ url('stats') }}">
-                        <i class="material-icons">show_chart</i>
-                        <p>Statystyki</p>
+                <li class="{{ Request::segment(2)==='drugs' ? 'active' : ''}}">
+                    <a href="{{ url('admin/drugs') }}">
+                        <i class="material-icons">local_pharmacy</i>
+                        <p>Leki</p>
                     </a>
                 </li>
             </ul>

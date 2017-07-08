@@ -168,6 +168,8 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Nayjest\Grids\ServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -208,8 +210,11 @@ return [
         'Event' => Illuminate\Support\Facades\Event::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'File' => Illuminate\Support\Facades\File::class,
+        'Form'  => Illuminate\Html\FormFacade::class,
         'Gate' => Illuminate\Support\Facades\Gate::class,
+        'Grids'     => Nayjest\Grids\Grids::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
+        'HTML'  => Collective\Html\HtmlFacade::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
