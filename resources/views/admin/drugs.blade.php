@@ -30,7 +30,9 @@
                     <button class="btn btn-primary">Zaimportuj plik do bazy</button>
 
                 </form>
+                {!! $grid !!}
             </div>
+
             <div class="card-footer">
             </div>
         </div>
