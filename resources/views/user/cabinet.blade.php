@@ -158,7 +158,23 @@
             });
 
             var options = {
-                data: ["blue", "green", "pink", "red", "yellow"]
+                url: "/drugs",
+
+                getValue: "name",
+
+                template: {
+                    type: "description",
+                    fields: {
+                        description: "package"
+                    }
+                },
+
+                list: {
+                    match: {
+                        enabled: true
+                    }
+                },
+
             };
             $("#name").easyAutocomplete(options);
             $('.easy-autocomplete').width('100%');
