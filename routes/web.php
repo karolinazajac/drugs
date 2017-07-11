@@ -24,6 +24,7 @@ Route::get('/timetable', 'User\TimetableController@index');
 Route::get('/diary', 'User\DiaryController@index');
 Route::get('/stats', 'User\StatisticsController@index');
 Route::get('/drugs', 'User\CabinetController@getDrugs');
+Route::post('/cabinet/create', 'User\CabinetController@createCabinet');
 
 Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin/home', 'Admin\HomeController@index');

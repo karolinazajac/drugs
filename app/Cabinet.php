@@ -15,9 +15,9 @@ class Cabinet extends Model
          'cabinet_name', 'user_id'
     ];
 
-    public function user()
+    public function users()
     {
-        return $this->hasMany('App\User');
+        return $this->belongsToMany('App\User');
     }
 
     public function cabinetDrugs()

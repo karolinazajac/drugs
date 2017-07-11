@@ -27,9 +27,9 @@ class User extends Authenticatable
         'password', 'remember_token'
     ];
 
-    public function cabinet()
+    public function cabinets()
     {
-        return $this->belongsTo('App\Cabinet');
+        return $this->belongsToMany('App\Cabinet');
     }
 
     /**
