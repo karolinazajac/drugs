@@ -212,7 +212,8 @@ class CabinetController extends Controller
 //        );
 
 //        return view('user.cabinet', compact('grid','name'));
-        return view('user.cabinet');
+        $cabinetsList=Auth::user()->cabinets();
+        return view('user.cabinet', compact( 'cabinetsList'));
     }
 
     public function getDrugs()
@@ -236,9 +237,11 @@ class CabinetController extends Controller
         $cabinet->user_id = Auth::user()->id;;
         $cabinet->save();
         Auth::user()->cabinets()->attach($cabinet->id);
-        foreach (Input::get('user_email') as $key => $val) {
-            $newUser=User::where('email',$key) -> first();
-            $newUser->cabinets()->attach($cabinet->id);
+        if(!is_null(Input::get('user_email'))){
+            foreach (Input::get('user_email') as $key => $val) {
+                $newUser=User::where('email',$key) -> first();
+                $newUser->cabinets()->attach($cabinet->id);
+            }
         }
         return back();
     }
