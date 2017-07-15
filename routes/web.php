@@ -27,6 +27,7 @@ Route::get('/drugs', 'User\CabinetController@getDrugs');
 Route::post('/cabinet/create', 'User\CabinetController@createCabinet');
 Route::post('/cabinet/add-drug', 'User\CabinetController@addDrug');
 Route::post('/cabinet/delete-drug/{id}', 'User\CabinetController@deleteDrug');
+Route::post('/cabinet/edit-drug/{id}', 'User\CabinetController@editDrug');
 
 Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin/home', 'Admin\HomeController@index');

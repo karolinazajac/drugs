@@ -38,22 +38,24 @@
                     <tbody>
                     @foreach($cabinetDrugs as $key=>$cabinetDrug)
                     <tr>
-                        {{--{{$i=0; $i++;}}--}}
                         <td>{{$key+1}}</td>
                         <td>{{$cabinetDrug->name}}</td>
-                        <td data-editable>{{$cabinetDrug->quantity}}</td>
+                        <td title="Edytuj wartość" data-editable data-id="{{$cabinetDrug->id}}"><span>{{$cabinetDrug->quantity}}</span>
+                            <form class="form-horizontal" id="{{$cabinetDrug->id}}" role="form" method="Post" action="{{ url('/cabinet/edit-drug/'.$cabinetDrug->id) }}">
+                                <input class="form-control quantity hidden" name="updatedQuantity" data-id={{$cabinetDrug->id}} value="{{$cabinetDrug->quantity}}"/>{{ csrf_field() }}
+                                <button type="submit" class="hidden"></button>
+                            </form>
+                        </td>
                         <td>{{$cabinetDrug->expiration_date}}</td>
                         <td>{{$cabinetDrug->price}} zł</td>
                         <td>
                             <form class="form-horizontal" role="form" method="Post" action="{{ url('/cabinet/delete-drug/'.$cabinetDrug->id) }}">
                             {{ csrf_field() }}
-                                <div class="form-group">
                                     <div class="col-md-6 col-md-offset-4">
-                                        <button type="submit" class="btn btn-primary btn-simple btn-lg">
-                                            <i class="material-icons">delete</i>
+                                        <button type="submit" class="btn btn-primary btn-simple btn-bin">
+                                            <i class="material-icons bin">delete</i>
                                         </button>
                                     </div>
-                                </div>
                             </form>
                         </td>
                     </tr>
@@ -272,20 +274,25 @@
                     e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
                 });
 
+
             $('table').on('click', '[data-editable]', function(){
-
                 var $el = $(this);
-
-                var $input = $('<input class="form-control quantity"/>').val( $el.text() );
-                $el.replaceWith( $input );
+                var quantity= $el.find('input');
+                $el.find('span').addClass('hidden');
+                quantity.removeClass('hidden');
 
                 var save = function(){
-                    var $td = $('<td data-editable />').text( $input.val() );
-                    $input.replaceWith( $td );
+                    quantity.addClass('hidden');
+                    $el.find('span').removeClass('hidden');
+                    $el.find('span').text(quantity.val());
+
                 };
 
-                $input.one('blur', save).focus();
+                quantity.one('blur', save).focus();
 
+            });
+            $('input[name=updatedQuantity]').change( function(e){
+                $('form#'+$(this).data("id")).submit();
             });
         })
     </script>

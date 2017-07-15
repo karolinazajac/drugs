@@ -219,4 +219,12 @@ class CabinetController extends Controller
 
         return back();
     }
+
+    public function editDrug (Request $request, $id)
+    {
+        $cabinetDrug = CabinetDrug::findOrFail($id);
+        $cabinetDrug->quantity = $request->input('updatedQuantity');
+        $cabinetDrug->save();
+        return back();
+    }
 }
