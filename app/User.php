@@ -29,7 +29,7 @@ class User extends Authenticatable
 
     public function cabinets()
     {
-        return $this->belongsToMany('App\Cabinet');
+        return $this->belongsToMany('App\Cabinet')->withPivot( 'main');
     }
 
     /**

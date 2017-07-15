@@ -7,9 +7,9 @@
         <div class="col-md-2">
             <button class="btn btn-info btn-round" id="add-cabinet" data-toggle="modal" data-target="#cabinetModal">+ Nowa Apteczka <div class="ripple-container"></div></button>
         </div>
-         <div class="col-md-4">
-            <button class="btn btn-info btn-round" id="cabinet_login" data-toggle="modal" data-target="#loginModal">Zaloguj się do istniejącej apteczki <div class="ripple-container"></div></button>
-        </div>
+         {{--<div class="col-md-4">--}}
+            {{--<button class="btn btn-info btn-round" id="cabinet_login" data-toggle="modal" data-target="#loginModal">Zaloguj się do istniejącej apteczki <div class="ripple-container"></div></button>--}}
+        {{--</div>--}}
         <div class="col-md-2 dropdown">
             <a href="#" class="btn btn-info btn-round dropdown-toggle " id="cabinetsList" data-toggle="dropdown">
                 <i class="material-icons">local_pharmacy</i> Twoje apteczki
@@ -23,7 +23,7 @@
         </div>
         <div class="card">
             <div class="card-header" data-background-color="blue">
-                <h4 class="title">Twoja apteczka <button class="btn btn-primary btn-round pull-right" id="add-drug" data-toggle="modal" data-target="#myModal">+ Lek <div class="ripple-container"></div></button></h4>
+                <h4 class="title">{{$mainCabinet->cabinet_name}} <button class="btn btn-primary btn-round pull-right" id="add-drug" data-toggle="modal" data-target="#myModal">+ Lek <div class="ripple-container"></div></button></h4>
             </div>
             <div class="card-content table-responsive">
                 <table class="table table-hover">
@@ -36,42 +36,32 @@
                     <th></th>
                     </thead>
                     <tbody>
+                    @foreach($cabinetDrugs as $key=>$cabinetDrug)
                     <tr>
-                        <td>1</td>
-                        <td>Apap</td>
-                        <td>12</td>
-                        <td>06/07/2020</td>
-                        <td>$36,738</td>
-                        <td><i class="material-icons">delete</i></td>
+                        {{--{{$i=0; $i++;}}--}}
+                        <td>{{$key+1}}</td>
+                        <td>{{$cabinetDrug->name}}</td>
+                        <td data-editable>{{$cabinetDrug->quantity}}</td>
+                        <td>{{$cabinetDrug->expiration_date}}</td>
+                        <td>{{$cabinetDrug->price}} zł</td>
+                        <td>
+                            <form class="form-horizontal" role="form" method="Post" action="{{ url('/cabinet/delete-drug/'.$cabinetDrug->id) }}">
+                            {{ csrf_field() }}
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-4">
+                                        <button type="submit" class="btn btn-primary btn-simple btn-lg">
+                                            <i class="material-icons">delete</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Xanax</td>
-                        <td>5</td>
-                        <td>06/07/2020</td>
-                        <td>$23,789</td>
-                        <td><i class="material-icons">delete</i></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Apap Extra</td>
-                        <td>5</td>
-                        <td>06/07/2020</td>
-                        <td>$56,142</td>
-                        <td><i class="material-icons">delete</i></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Ibuprom zatoki</td>
-                        <td>$38,735</td>
-                        <td>06/07/2020</td>
-                        <td>$38,735</td>
-                        <td><i class="material-icons">delete</i></td>
-                    </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
-
+            {{--{!! $grid !!}--}}
         </div>
     </div>
 
@@ -89,7 +79,7 @@
             </div>
             <div class="modal-body">
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('add-drug') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/cabinet/add-drug') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -97,7 +87,8 @@
 
                             <div class="col-md-6">
                                 <input id="name" class="form-control" name="name" required autofocus>
-
+                                <input type="hidden" id="ean" name="ean">
+                                <input type="hidden" id="cabinetId" name="cabinetId" value="{{$mainCabinet->id}}">
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -242,12 +233,17 @@
                         description: "package"
                     }
                 },
-
+                theme: 'blue-light',
                 list: {
+                    onChooseEvent: function() {
+                        var value = $("#name").getSelectedItemData().id;
+                        $("#ean").val(value).trigger("change");
+                    },
                     match: {
                         enabled: true
                     }
-                },
+
+                }
 
             };
             $("#name").easyAutocomplete(options);
@@ -268,14 +264,29 @@
                     }
                     else
                     {
-                        alert('You Reached the limits')
+                        alert('Przekroczyłeś limit użytkowników')
                     }
                 });
 
                 $(wrapper).on("click",".delete", function(e){
                     e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
-                })
+                });
 
+            $('table').on('click', '[data-editable]', function(){
+
+                var $el = $(this);
+
+                var $input = $('<input class="form-control quantity"/>').val( $el.text() );
+                $el.replaceWith( $input );
+
+                var save = function(){
+                    var $td = $('<td data-editable />').text( $input.val() );
+                    $input.replaceWith( $td );
+                };
+
+                $input.one('blur', save).focus();
+
+            });
         })
     </script>
 @endsection

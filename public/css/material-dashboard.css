@@ -5011,10 +5011,6 @@ footer .btn {
     background-color: transparent !important;
   }
 
-  .btn.dropdown-toggle {
-    margin-bottom: 0;
-  }
-
   .media-post .author {
     width: 20%;
     float: none !important;
@@ -5064,7 +5060,7 @@ footer .btn {
   }
 }
 #add-drug {
-  margin-top: -5px;
+  margin-top: -8px;
 }
 #calendar {
   float: right;
@@ -5074,4 +5070,11 @@ footer .btn {
   float: right;
   margin-top:-40px;
 }
-
+h4.title {
+  padding-left: 15px;
+  padding-top: 5px;
+}
+input.quantity {
+  max-width: 50px;
+  margin-top:35px;
+}

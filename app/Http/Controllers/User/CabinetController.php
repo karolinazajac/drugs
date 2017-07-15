@@ -52,74 +52,62 @@ class CabinetController extends Controller
      */
     public function index()
     {
-//        $cabinet=Cabinet::find($val);
-//        $name=$cabinet->name;
-//        $id=$cabinet->id;
-//        $query = CabinetDrug
-//            ::where('cabinet_id', $id)
-//            ->select('cabinet_drugs.*')
-//        ::leftJoin('drugs', 'cabinet_drugs.ean', '=','drugs.ean')
-//            ->select('cabinet_drugs.*','countries.name')
-//            ->newQuery()
-//            ->where('movie_id', $val);
-//
+        $cabinetsList=Auth::user()->cabinets();
+        $mainCabinet=Auth::user()->cabinets()->where('main', true)->first();
+
+        $id=$mainCabinet->id;
+        $query = CabinetDrug
+            ::where('cabinet_id', $id)
+            ->select('cabinet_drugs.*')
+        ->leftJoin('drugs', 'cabinet_drugs.ean', '=','drugs.ean')
+            ->select('cabinet_drugs.*','drugs.name');
+        $cabinetDrugs = CabinetDrug
+            ::where('cabinet_id', $id)
+            ->select('cabinet_drugs.*')
+            ->leftJoin('drugs', 'cabinet_drugs.ean', '=','drugs.ean')
+            ->select('cabinet_drugs.*','drugs.name')->get();
 //        $grid = new Grid(
 //            (new GridConfig)
 //                # Grids name used as html id, caching key, filtering GET params prefix, etc
 //                # If not specified, unique value based on file name & line of code will be generated
-//                ->setName('movies')
+//                ->setName('cabinetDrugs')
 //                # See all supported data providers in sources
 //                ->setDataProvider(new EloquentDataProvider($query))
 //                # Setup table columns
 //                ->setColumns([
 //                    # simple results numbering, not related to table PK or any obtained data
 //                    new IdFieldConfig(),
-//                    (new FieldConfig('email'))
-//                        ->setName('email')
-//                        # will be displayed in table header
-//                        ->setLabel('User')
-//                        # sorting buttons will be added to header, DB query will be modified
-//                        ->setSortable(true)
-//                    ,
-//                    (new FieldConfig('country_id'))
+//                    (new FieldConfig('drugs.name'))
 //                        ->setName('name')
 //                        # will be displayed in table header
-//                        ->setLabel('Country')
-//                        # That's all what you need for filtering.
-//                        # It will create controls, process input
-//                        # and filter results (in case of EloquentDataProvider -- modify SQL query)
+//                        ->setLabel('Nazwa leku')
 //                        ->addFilter(
 //                            (new FilterConfig)
-//                                ->setName('countries.name')
+//                                ->setName('drugs.name')
 //                                ->setOperator(FilterConfig::OPERATOR_LIKE)
 //                        )
-//
 //                        # sorting buttons will be added to header, DB query will be modified
 //                        ->setSortable(true)
 //                    ,
-//                    (new FieldConfig('gender'))
-//                        ->setName('gender')
+//                    (new FieldConfig('quantity'))
+//                        ->setName('quantity')
 //                        # will be displayed in table header
-//                        ->setLabel('Gender')
-//                        # That's all what you need for filtering.
-//                        # It will create controls, process input
-//                        # and filter results (in case of EloquentDataProvider -- modify SQL query)
-//                        ->addFilter(
-//                            (new FilterConfig)
-//                                ->setName('users.gender')
-//                                ->setOperator(FilterConfig::OPERATOR_LIKE)
-//                        )
-//
+//                        ->setLabel('Ilość')
+//                        # sorting buttons will be added to header, DB query will be modified
+//                        ->setSortable(true)
+//                    ,
+//                    (new FieldConfig('expiration_date'))
+//                        ->setName('expiration_date')
+//                        # will be displayed in table header
+//                        ->setLabel('Data ważności')
 //                        # sorting buttons will be added to header, DB query will be modified
 //                        ->setSortable(true)
 //                    ,
 //                    (new FieldConfig)
-//                        ->setName('created_at')
-//                        ->setLabel('Date')
+//                        ->setName('price')
+//                        ->setLabel('Cena')
 //                        ->setSortable(true)
-//                        ->setCallback(function ($val) {
-//                            return $val->toDateString();
-//                        }),
+//
 //                ])
 //                # Setup additional grid components
 //                ->setComponents([
@@ -129,34 +117,6 @@ class CabinetController extends Controller
 //                        ->setComponents([
 //                            # Add this if you have filters for automatic placing to this row
 //                            (new FiltersRow)
-//                                ->addComponents([
-//                                    (new RenderFunc(function () {
-//                                        return HtmlFacade::style('css/daterangepicker.css')
-//                                            . HtmlFacade::script('js/jquery-3.2.1.min.js')
-//                                            . HtmlFacade::script('js/moment-with-locales.min.js')
-//                                            . HtmlFacade::script('js/datarangepicker-stats.js')
-//                                            . HtmlFacade::script('js/bootstrap-datepicker.js')
-//                                            . "<style>
-//                                                .daterangepicker td.available.active,
-//                                                .daterangepicker li.active,
-//                                                .daterangepicker li:hover {
-//                                                    color:black !important;
-//                                                    font-weight: bold;
-//                                                }
-//                                           </style>";
-//                                    }))
-//                                        ->setRenderSection('filters_row_column_created_at'),
-//                                    (new DateRangePicker)
-//                                        ->setName('created_at')
-//                                        ->setRenderSection('filters_row_column_created_at')
-//                                        ->setDefaultValue([Carbon::now()->subDays(7)->format('y-m-d'), Carbon::now()->format('y-m-d')])
-//                                        ->setFilteringFunc(function ($value, DataProvider $provider) {
-//                                            $start=new Carbon($value[0]);
-//                                            $end=new Carbon($value[1]);
-//                                            $provider->filter('video_events.created_at', '>=', $start->toDateTimeString());
-//                                            $provider->filter('video_events.created_at', '<=', $end->addSeconds(86399)->toDateTimeString());
-//                                        })
-//                                ])
 //                            ,
 //                            # Row with additional controls
 //                            (new OneCellRow)
@@ -172,12 +132,6 @@ class CabinetController extends Controller
 //                                    # CSV EXPORT function
 //                                    (new CsvExport)
 //                                        ->setFileName('my_report' . date('Y-m-d'))
-//                                    ,
-//                                    # Control to show/hide rows in table
-//                                    (new ColumnsHider)
-////                                        ->setHiddenByDefault([
-////                                            'is_hidden',
-////                                        ])
 //                                    ,
 //                                    # Submit button for filters.
 //                                    # Place it anywhere in the grid (grid is rendered inside form by default).
@@ -210,10 +164,7 @@ class CabinetController extends Controller
 //                    ,
 //                ])
 //        );
-
-//        return view('user.cabinet', compact('grid','name'));
-        $cabinetsList=Auth::user()->cabinets();
-        return view('user.cabinet', compact( 'cabinetsList'));
+        return view('user.cabinet', compact( 'cabinetsList', 'mainCabinet', 'cabinetDrugs'));
     }
 
     public function getDrugs()
@@ -243,6 +194,29 @@ class CabinetController extends Controller
                 $newUser->cabinets()->attach($cabinet->id);
             }
         }
+        return back();
+    }
+
+    public function addDrug (Request $request)
+    {
+        $cabinetDrug = new CabinetDrug;
+        $cabinetDrug->ean = $request->ean;
+        $cabinetDrug->cabinet_id = $request->cabinetId;
+        $cabinetDrug->quantity = $request->quantity;
+        $cabinetDrug->expiration_date = Carbon::createFromFormat('d/m/Y', $request->date);
+        $cabinetDrug->price = $request->price;
+        $cabinetDrug->current_state = 1;
+        $cabinetDrug->save();
+
+        return back();
+    }
+
+    public function deleteDrug ($id)
+    {
+        $cabinetDrug = CabinetDrug::findOrFail($id);
+
+        $cabinetDrug->delete();
+
         return back();
     }
 }
