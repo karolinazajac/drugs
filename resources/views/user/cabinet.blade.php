@@ -10,6 +10,7 @@
          {{--<div class="col-md-4">--}}
             {{--<button class="btn btn-info btn-round" id="cabinet_login" data-toggle="modal" data-target="#loginModal">Zaloguj się do istniejącej apteczki <div class="ripple-container"></div></button>--}}
         {{--</div>--}}
+        @if($cabinetsList->count() > 0 )
         <div class="col-md-2 dropdown">
             <a href="#" class="btn btn-info btn-round dropdown-toggle " id="cabinetsList" data-toggle="dropdown">
                 <i class="material-icons">local_pharmacy</i> Twoje apteczki
@@ -21,9 +22,14 @@
                 @endforeach
             </ul>
         </div>
+        @endif
         <div class="card">
             <div class="card-header" data-background-color="blue">
-                <h4 class="title">{{$mainCabinet->cabinet_name}} <button class="btn btn-primary btn-round pull-right" id="add-drug" data-toggle="modal" data-target="#myModal">+ Lek <div class="ripple-container"></div></button></h4>
+                <h4 class="title">{{$mainCabinet instanceof App\Cabinet ?$mainCabinet->cabinet_name : $mainCabinet }}
+                    @if($cabinetsList->count() > 0 )
+                    <button class="btn btn-primary btn-round pull-right" id="add-drug" data-toggle="modal" data-target="#myModal">+ Lek <div class="ripple-container"></div></button>
+               @endif
+                </h4>
             </div>
             <div class="card-content table-responsive">
                 @if ($cabinetDrugs)
@@ -95,7 +101,7 @@
                             <div class="col-md-6">
                                 <input id="name" class="form-control" name="name" required autofocus>
                                 <input type="hidden" id="ean" name="ean">
-                                <input type="hidden" id="cabinetId" name="cabinetId" value="{{$mainCabinet->id}}">
+                                <input type="hidden" id="cabinetId" name="cabinetId" value="{{$mainCabinet instanceof App\Cabinet ?$mainCabinet->id : " " }}">
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>

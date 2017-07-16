@@ -33,9 +33,16 @@ class CabinetController extends Controller
      */
     public function index($id=null)
     {
-        $cabinetsList=Auth::user()->cabinets();
+        $cabinetsList=Auth::user()->cabinets;
+        $cabinetDrugs=null;
+        $mainCabinet='Twoja pierwsza apteczka';
+        if($cabinetsList->count() == 0 )
+        {
+            return view('user.cabinet', compact( 'cabinetsList', 'mainCabinet', 'cabinetDrugs'));
+        }
         if(is_null($id)){
-            $mainCabinet=Auth::user()->cabinets()->where('main', true)->first();
+            $defaultCabinet=Auth::user()->cabinets()->where('main', true)->first();
+            $mainCabinet= (is_null($defaultCabinet))? Auth::user()->cabinets()->first() : $defaultCabinet;
             $id=$mainCabinet->id;
         }
         else {
@@ -50,9 +57,7 @@ class CabinetController extends Controller
                 ->leftJoin('drugs', 'cabinet_drugs.ean', '=','drugs.ean')
                 ->select('cabinet_drugs.*','drugs.name')->paginate(15);
         }
-       else {
-           $cabinetDrugs=null;
-       }
+
 
         return view('user.cabinet', compact( 'cabinetsList', 'mainCabinet', 'cabinetDrugs'));
     }
@@ -80,7 +85,7 @@ class CabinetController extends Controller
         Auth::user()->cabinets()->attach($cabinet->id);
         if(!is_null(Input::get('user_email'))){
             foreach (Input::get('user_email') as $key => $val) {
-                $newUser=User::where('email',$key) -> first();
+                $newUser=User::where('email',$val) -> first();
                 $newUser->cabinets()->attach($cabinet->id);
             }
         }

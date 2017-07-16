@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -24,6 +25,13 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('user.users');
+        $cabinetsList=Auth::user()->cabinets;
+        $cabinets=array();
+        foreach ($cabinetsList as $cabinet)
+        {
+            $cabinets[$cabinet->id]=$cabinet->cabinet_name;
+        }
+
+        return view('user.users', compact('cabinets', 'cabinetsList'));
     }
 }

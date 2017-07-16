@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header" data-background-color="blue">
-                <h4 class="nav-tabs-title">Apteczka</h4>
+                <h4 class="nav-tabs-title">Moja tablica</h4>
             </div>
             <div class="card-content">
                 <p class="category"></p>

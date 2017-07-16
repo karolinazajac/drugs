@@ -5062,7 +5062,7 @@ footer .btn {
     margin-right: -20px;
   }
 }
-#add-drug {
+#add-drug, #userInfo {
   margin-top: -8px;
 }
 #calendar {
