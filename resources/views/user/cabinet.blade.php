@@ -17,7 +17,7 @@
             </a>
             <ul class="dropdown-menu">
                 @foreach (Auth::user()->cabinets as $cabinet)
-                    <li><a href="#">{{$cabinet->cabinet_name}}</a></li>
+                    <li><a href="/cabinet/{{$cabinet->id}}">{{$cabinet->cabinet_name}}</a></li>
                 @endforeach
             </ul>
         </div>
@@ -26,6 +26,7 @@
                 <h4 class="title">{{$mainCabinet->cabinet_name}} <button class="btn btn-primary btn-round pull-right" id="add-drug" data-toggle="modal" data-target="#myModal">+ Lek <div class="ripple-container"></div></button></h4>
             </div>
             <div class="card-content table-responsive">
+                @if ($cabinetDrugs)
                 <table class="table table-hover">
                     <thead class="text-warning">
                     <th>ID</th>
@@ -36,6 +37,7 @@
                     <th></th>
                     </thead>
                     <tbody>
+
                     @foreach($cabinetDrugs as $key=>$cabinetDrug)
                     <tr>
                         <td>{{$key+1}}</td>
@@ -62,8 +64,11 @@
                     @endforeach
                     </tbody>
                 </table>
+                    {{ $cabinetDrugs->links() }}
+                @else
+                    <p>Twoja apteczka jest aktualnie pusta, dodaj swoje leki :)</p>
+                @endif
             </div>
-            {{--{!! $grid !!}--}}
         </div>
     </div>
 

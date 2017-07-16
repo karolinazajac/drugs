@@ -23,7 +23,7 @@ class CreateCabinetDrugsTable extends Migration
                 ->references('id')->on('cabinets')->onDelete('cascade');
             $table->integer('quantity');
             $table->date('expiration_date');
-            $table->integer('price');
+            $table->integer('price')->default(0);
             $table->integer('current_state');
             $table->timestamps();
         });
