@@ -122,4 +122,33 @@ class CabinetController extends Controller
         $cabinetDrug->save();
         return back();
     }
+
+    public function deleteCabinetUser ($cabinetId, $userId)
+    {
+        $user = User::findOrFail($userId);
+
+        $user->cabinets()->detach($cabinetId);
+
+        return back();
+    }
+
+    public function deleteCabinet ($id)
+    {
+        $cabinet = Cabinet::findOrFail($id);
+        $cabinet->users()->detach();
+        $cabinet->delete();
+
+        return back();
+    }
+
+    public function addUser(Request $request, $cabinetId)
+    {
+        dd(Input::get('newUser'));
+        if(!is_null(Input::get('newUser'))){
+
+                $newUser=User::where('email',Input::get('newUser')) -> first();
+                $newUser->cabinets()->attach($cabinetId);
+        }
+        return back();
+    }
 }

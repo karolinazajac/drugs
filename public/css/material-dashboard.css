@@ -1350,7 +1350,6 @@ h2.title {
 
 .btn .material-icons {
   vertical-align: middle;
-  font-size: 17px;
   top: -1px;
   position: relative;
 }
@@ -1949,6 +1948,9 @@ label.control-label {
 .form-group {
   padding-bottom: 7px;
   margin: 27px 0 0 0;
+}
+.addUserForm .form-group {
+  margin: 0;
 }
 .form-group .form-control {
   margin-bottom: 7px;
@@ -5086,4 +5088,14 @@ input.quantity {
 }
 td[data-editable]:hover {
   cursor: pointer;
+}
+.deleteCabinet {
+  margin-top: -42px;
+}
+.deleteCabinet .btn .material-icons {
+  font-size: 22px;
+}
+.addUserBtn {
+  float: right;
+  margin-top: -50px;
 }

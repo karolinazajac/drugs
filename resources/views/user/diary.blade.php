@@ -7,24 +7,23 @@
             <div class="card-header" data-background-color="purple">
                 <div class="nav-tabs-navigation">
                     <div class="nav-tabs-wrapper">
-                        <span class="nav-tabs-title">Tasks:</span>
                         <ul class="nav nav-tabs" data-tabs="tabs">
                             <li class="active">
                                 <a href="#profile" data-toggle="tab">
-                                    <i class="material-icons">bug_report</i>
-                                    Bugs
+                                    <i class="material-icons">message</i>
+                                    Notatki
                                     <div class="ripple-container"></div></a>
                             </li>
                             <li class="">
                                 <a href="#messages" data-toggle="tab">
-                                    <i class="material-icons">code</i>
-                                    Website
+                                    <i class="material-icons">event_note</i>
+                                    Wizyty lekarskie
                                     <div class="ripple-container"></div></a>
                             </li>
                             <li class="">
                                 <a href="#settings" data-toggle="tab">
-                                    <i class="material-icons">cloud</i>
-                                    Server
+                                    <i class="material-icons">assignment</i>
+                                    Recepty
                                     <div class="ripple-container"></div></a>
                             </li>
                         </ul>
@@ -35,6 +34,9 @@
             <div class="card-content">
                 <div class="tab-content">
                     <div class="tab-pane active" id="profile">
+                        <div class="col-md-2">
+                            <button class="btn btn-primary btn-round" id="add-note" data-toggle="modal" data-target="#noteModal">+ Nowa Notatka <div class="ripple-container"></div></button>
+                        </div>
                         <table class="table">
                             <tbody>
                             <tr>
@@ -223,3 +225,92 @@
     </div>
 
 @endsection
+
+@section('modal')
+    <!-- Start Modal -->
+    <div class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="material-icons">clear</i>
+                    </button>
+                    <h4 class="modal-title">Dodaj nowy lek do swojej apteczki!</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/cabinet/add-drug') }}">
+                            {{ csrf_field() }}
+
+                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                <label for="name" class="col-md-4 control-label">Nazwa</label>
+
+                                <div class="col-md-6">
+                                    <input id="name" class="form-control" name="name" required autofocus>
+                                    <input type="hidden" id="ean" name="ean">
+                                    @if ($errors->has('name'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('quantity') ? ' has-error' : '' }}">
+                                <label for="quantity" class="col-md-4 control-label">Ilość</label>
+
+                                <div class="col-md-6">
+                                    <input id="quantity" type="number" class="form-control" name="quantity" value="{{ old('quantity') }}" required>
+
+                                    @if ($errors->has('quantity'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('quantity') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
+                                <label for="date" class="col-md-4 control-label">Data ważności</label>
+
+                                <div class="col-md-6">
+
+                                    <input type="text" id="date" name="date" class="form-control" required>
+                                    <i class="glyphicon glyphicon-calendar fa fa-calendar" id="calendar"></i>
+
+                                    @if ($errors->has('date'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('date') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
+                                <label for="price" class="col-md-4 control-label">Cena</label>
+
+                                <div class="col-md-6">
+                                    <input id="price" type="number" class="form-control" name="price" value="{{ old('price') }}" required>
+
+                                    @if ($errors->has('price'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('price') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Dodaj lek
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endsection

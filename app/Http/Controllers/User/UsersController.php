@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use App\User;
 
 class UsersController extends Controller
 {
@@ -33,5 +34,14 @@ class UsersController extends Controller
         }
 
         return view('user.users', compact('cabinets', 'cabinetsList'));
+    }
+
+    public function edit(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->name = $request->input('editName');
+        $user->email = $request->input('editEmail');
+        $user->save();
+        return back();
     }
 }

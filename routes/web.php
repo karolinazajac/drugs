@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'User\HomeController@index');
 Route::get('/users', 'User\UsersController@index');
+Route::post('/users/edit/{id}', 'User\UsersController@edit');
 Route::get('/cabinet/{id?}', 'User\CabinetController@index');
 Route::get('/timetable', 'User\TimetableController@index');
 Route::get('/diary', 'User\DiaryController@index');
@@ -28,6 +29,9 @@ Route::post('/cabinet/create', 'User\CabinetController@createCabinet');
 Route::post('/cabinet/add-drug', 'User\CabinetController@addDrug');
 Route::post('/cabinet/delete-drug/{id}', 'User\CabinetController@deleteDrug');
 Route::post('/cabinet/edit-drug/{id}', 'User\CabinetController@editDrug');
+Route::post('/cabinet/delete-user/{cabinetId}/{userId}', 'User\CabinetController@deleteCabinetUser');
+Route::post('/cabinet/delete-cabinet/{id}','User\CabinetController@deleteCabinet');
+Route::post('/cabinet/add-user/{cabinetId}', 'User\CabinetController@addUser');
 
 Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin/home', 'Admin\HomeController@index');

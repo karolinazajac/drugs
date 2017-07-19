@@ -24,5 +24,4 @@ class Cabinet extends Model
     {
         return $this->hasMany('App\CabinetDrug');
     }
-
 }

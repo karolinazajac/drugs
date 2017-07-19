@@ -39,4 +39,13 @@ class User extends Authenticatable
     {
         return $this->admin; // this looks for an admin column in your users table
     }
+
+    /**
+     * @param Cabinet $cabinet
+     * @return bool
+     */
+    public function isCabinetAdmin( Cabinet $cabinet)
+    {
+        return $cabinet->user_id === $this->id;
+    }
 }
