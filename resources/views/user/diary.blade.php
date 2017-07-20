@@ -235,75 +235,53 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <i class="material-icons">clear</i>
                     </button>
-                    <h4 class="modal-title">Dodaj nowy lek do swojej apteczki!</h4>
+                    <h4 class="modal-title">Dodaj nową notatkę</h4>
                 </div>
                 <div class="modal-body">
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/cabinet/add-drug') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/diary/create-note') }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                <label for="name" class="col-md-4 control-label">Nazwa</label>
+
+                            <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                                <label for="title" class="col-md-4 control-label">Tytuł</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" class="form-control" name="name" required autofocus>
-                                    <input type="hidden" id="ean" name="ean">
-                                    @if ($errors->has('name'))
+                                    <input id="title" type="text" class="form-control" name="title" value="{{ old('quantity') }}" required>
+
+                                    @if ($errors->has('title'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('title') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('quantity') ? ' has-error' : '' }}">
-                                <label for="quantity" class="col-md-4 control-label">Ilość</label>
+                            <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
+                                <label for="body" class="col-md-4 control-label">Treść notatki</label>
 
                                 <div class="col-md-6">
-                                    <input id="quantity" type="number" class="form-control" name="quantity" value="{{ old('quantity') }}" required>
 
-                                    @if ($errors->has('quantity'))
+                                    <textarea  id="body" name="body" class="form-control" cols="50" rows="7" placeholder="Zacznij pisać swoją notatkę..."> </textarea>
+
+                                    @if ($errors->has('body'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('quantity') }}</strong>
+                                        <strong>{{ $errors->first('body') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
-                                <label for="date" class="col-md-4 control-label">Data ważności</label>
-
-                                <div class="col-md-6">
-
-                                    <input type="text" id="date" name="date" class="form-control" required>
-                                    <i class="glyphicon glyphicon-calendar fa fa-calendar" id="calendar"></i>
-
-                                    @if ($errors->has('date'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('date') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
-                                <label for="price" class="col-md-4 control-label">Cena</label>
-
-                                <div class="col-md-6">
-                                    <input id="price" type="number" class="form-control" name="price" value="{{ old('price') }}" required>
-
-                                    @if ($errors->has('price'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('price') }}</strong>
-                                    </span>
-                                    @endif
+                            <div class="form-group {{ $errors->has('file') ? ' has-error' : '' }}">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <input type="file" id="image" name="image" class="form-control" >
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Dodaj lek
+                                        Dodaj notatkę
                                     </button>
                                 </div>
                             </div>

@@ -23,6 +23,7 @@ Route::post('/users/edit/{id}', 'User\UsersController@edit');
 Route::get('/cabinet/{id?}', 'User\CabinetController@index');
 Route::get('/timetable', 'User\TimetableController@index');
 Route::get('/diary', 'User\DiaryController@index');
+Route::post('/diary/create-note', 'User\DiaryController@createNote');
 Route::get('/stats', 'User\StatisticsController@index');
 Route::get('/drugs', 'User\CabinetController@getDrugs');
 Route::post('/cabinet/create', 'User\CabinetController@createCabinet');
