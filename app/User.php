@@ -32,6 +32,10 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Cabinet')->withPivot( 'main');
     }
 
+    public function notes()
+    {
+        return $this->hasMany('App\Note');
+    }
     /**
      * @return mixed
      */

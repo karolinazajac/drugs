@@ -21,13 +21,13 @@ class Note extends Model
     'title', 'body', 'user_id'
 ];
 
-    public function users()
+    public function images()
 {
-    return $this->belongsToMany('App\User')->withPivot( 'main');
+    return $this->belongsToMany('App\Image');
 }
 
-    public function cabinetDrugs()
+    public function users()
 {
-    return $this->hasMany('App\CabinetDrug');
+    return $this->belongsTo('App\User');
 }
 }

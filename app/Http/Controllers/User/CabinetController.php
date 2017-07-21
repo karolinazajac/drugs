@@ -80,7 +80,7 @@ class CabinetController extends Controller
     {
         $cabinet = new Cabinet;
         $cabinet->cabinet_name = $request->cabinet_name;
-        $cabinet->user_id = Auth::user()->id;;
+        $cabinet->user_id = Auth::user()->id;
         $cabinet->save();
         Auth::user()->cabinets()->attach($cabinet->id);
         if(!is_null(Input::get('user_email'))){

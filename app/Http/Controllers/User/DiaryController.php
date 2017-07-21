@@ -35,12 +35,42 @@ class DiaryController extends Controller
         $note = new Note;
         $note->title = $request->title;
         $note->body = $request->body;
-        $note->user_id = Auth::user()->id;;
+        $note->user_id = Auth::user()->id;
         $note->save();
-request()->file('image')->store('images');
+
         if(!is_null(Input::get('file'))){
-//            $note->images()->attach($cabinet->id);
-        }
+            request()->file('image')->store('images');
+            $image = new Image;
+                // ensure every image has a different name
+            $file_name = $request->file('image')->hashName();
+            $image->path = $file_name;
+            $image->save();
+            }
+
+// then in your view you reference the path like this:
+//            <img src="{{ asset('public/images/' . $model->image) }}">
+//            $note->images()->attach( $note->id);
+
         return back();
     }
+
+    public function editeNote(Request $request, $id)
+    {
+        $note = Note::findOrFail($id);
+        $note->title = $request->title;
+        $note->body = $request->body;
+        $note->save();
+
+        return back();
+    }
+
+    public function deleteNote ($id)
+    {
+        $note = Note::findOrFail($id);
+        $note->images()->detach();
+        $note->delete();
+
+        return back();
+    }
+
 }
