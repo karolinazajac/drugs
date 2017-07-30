@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use App\Note;
+use App\Image;
 use Auth;
 
 class DiaryController extends Controller
@@ -27,7 +28,13 @@ class DiaryController extends Controller
      */
     public function index()
     {
-        return view('user.diary');
+        $notes=Auth::user()->notes;
+//        if($notes->count() == 0 )
+//        {
+//            return view('user.diary', compact( 'notes'));
+//        }
+
+        return view('user.diary', compact( 'notes'));
     }
 
     public function createNote(Request $request)
@@ -38,13 +45,14 @@ class DiaryController extends Controller
         $note->user_id = Auth::user()->id;
         $note->save();
 
-        if(!is_null(Input::get('file'))){
+        if(!is_null( request()->file('image'))){
             request()->file('image')->store('images');
             $image = new Image;
                 // ensure every image has a different name
             $file_name = $request->file('image')->hashName();
             $image->path = $file_name;
             $image->save();
+            $note->images()->attach( $image->id);
             }
 
 // then in your view you reference the path like this:
