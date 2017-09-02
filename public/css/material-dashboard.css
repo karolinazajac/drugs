@@ -5097,3 +5097,10 @@ td[data-editable]:hover {
   float: right;
   margin-top: -50px;
 }
+#cabinet-list {
+  float: right;
+  margin-top: -57px;
+}
+#cabinet-list ul li a {
+  color: black;
+}

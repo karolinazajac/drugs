@@ -3767,3 +3767,9 @@ h3.title {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
 }
 /*# sourceMappingURL=material-kit.css.map */
+ blockquote {
+ margin: 0 100px;
+}
+.panel-heading p {
+  margin: 20px 0;
+}

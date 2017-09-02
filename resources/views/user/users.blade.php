@@ -25,7 +25,7 @@
                                             </button>
                                         </div>
                                     </form>
-                            @endif
+                                 @endif
                             </div>
                             <div class="card-content">
                                 <table class="table table-hover">
@@ -69,14 +69,8 @@
                                     </tbody>
                                 </table>
                             </div>
-
-                        </div>
-                        <div class="card-footer">
-
                         </div>
                     </div>
-
-
                 @endforeach
             </div>
         @endforeach

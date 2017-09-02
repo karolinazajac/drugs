@@ -67,12 +67,10 @@ class CabinetController extends Controller
         $data = array();
         $results = DB::table('drugs')->get();
 
-
         foreach ( $results as $result ):
             $data[] = [ 'id' => $result->ean, 'name' => $result->name, 'package'=>$result->package ];
         endforeach;
 
-//        var_dump($data);
         return \Response::json($data);
     }
 

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class CabinetDrug extends Model
 {
@@ -27,5 +28,9 @@ class CabinetDrug extends Model
     public function drugConsumption()
     {
         return $this->hasMany('App\DrugConsumptions');
+    }
+    public function scopeLastSixMonths($query, $id)
+    {
+        return $query->where('cabinet_id', $id)->where('created_at','>',  Carbon::now()->subMonths(6) );
     }
 }

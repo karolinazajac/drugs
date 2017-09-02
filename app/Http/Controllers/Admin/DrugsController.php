@@ -207,16 +207,12 @@ class DrugsController extends Controller
                     }
                 }
 
-
                 if(!empty($insert)){
                     Drug::insert($insert);
                     return back()->with('success','Rekordy zostały pomyślnie dodane do tabeli :)');
                 }
-
             }
-
         }
-
         return back()->with('error','Sprawdź importowany plik, coś jest z nim nie tak :(');
     }
 }

@@ -48,7 +48,6 @@ class UsersController extends Controller
     public function index()
     {
         $query = User
-//            ::leftJoin('brands', 'movies.brand_id', '=', 'brands.id')
             ::select('users.*');
 
         $grid = new Grid(
