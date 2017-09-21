@@ -43,11 +43,6 @@
                         O projekcie
                     </a>
                 </li>
-                <li>
-                    <a href="http://demos.creative-tim.com/material-kit-pro/presentation.html?ref=utp-freebie" target="_blank">
-                        Kontakt
-                    </a>
-                </li>
 
                 @if (Auth::guest())
                     <li><button class="btn btn-primary btn-simple" data-toggle="modal" data-target="#modalLogin">Zaloguj<div class="ripple-container"></div></button><div class="ripple-container"></div></li>
@@ -74,11 +69,6 @@
                     </li>
                 @endif
 
-                <li>
-                    <a href="https://www.facebook.com/CreativeTim" target="_blank" class="btn btn-simple btn-white btn-just-icon">
-                        <i class="fa fa-facebook-square"></i>
-                    </a>
-                </li>
             </ul>
         </div>
     </div>
