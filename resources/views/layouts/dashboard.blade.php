@@ -62,12 +62,6 @@
                         <p>Apteczka</p>
                     </a>
                 </li>
-                <li class="{{ Request::segment(1)==='timetable' ? 'active' : ''}}">
-                    <a href="{{ url('timetable') }}">
-                        <i class="material-icons">today</i>
-                        <p>Terminarz</p>
-                    </a>
-                </li>
                 <li class="{{ Request::segment(1)==='diary' ? 'active' : ''}}">
                     <a href="{{ url('diary') }}">
                         <i class="material-icons">book</i>
@@ -108,7 +102,7 @@
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        Logout
+                                        Wyloguj
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

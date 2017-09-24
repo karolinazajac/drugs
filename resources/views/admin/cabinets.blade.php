@@ -9,6 +9,7 @@
             </div>
             <div class="card-content">
                 <p class="category"></p>
+                {!! $grid !!}
             </div>
             <div class="card-footer">
             </div>
