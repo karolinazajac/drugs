@@ -5,6 +5,22 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Cabinet;
+use Nayjest\Grids\GridConfig;
+use Nayjest\Grids\EloquentDataProvider;
+use Nayjest\Grids\IdFieldConfig;
+use Nayjest\Grids\FieldConfig;
+use Nayjest\Grids\FilterConfig;
+use Nayjest\Grids\Components\THead;
+use Nayjest\Grids\Components\FiltersRow;
+use Nayjest\Grids\Components\OneCellRow;
+use Nayjest\Grids\Components\RecordsPerPage;
+use Nayjest\Grids\Components\ColumnsHider;
+use Nayjest\Grids\Components\HtmlTag;
+use Nayjest\Grids\Components\TFoot;
+use Nayjest\Grids\Components\Laravel5\Pager;
+use Nayjest\Grids\Grid;
+use Nayjest\Grids\Components\CsvExport;
+use Nayjest\Grids\Components\ColumnHeadersRow;
 
 class CabinetsController extends Controller
 {
@@ -26,9 +42,9 @@ class CabinetsController extends Controller
     public function index()
     {
         $query = Cabinet
-            ::select('cabinets.*')
-            ->leftJoin('users', 'cabinets.user_id', '=','users.id')
-            ->select('cabinets.*','users.email');
+            ::leftJoin('users', 'cabinets.user_id', '=','users.id')
+        ->select('cabinets.*')
+            ->addSelect('users.email as user_email');
 
         $grid = new Grid(
             (new GridConfig)
@@ -58,13 +74,13 @@ class CabinetsController extends Controller
                         ->setSortable(true)
                     ,
                     (new FieldConfig)
-                        ->setName('users_email')
+                        ->setName('user_email')
                         # will be displayed in table header
-                        ->setLabel('Email')
+                        ->setLabel('Admin apteczki')
                     ,
                     (new FieldConfig)
                         ->setName('created_at')
-                        ->setLabel('Konto utworzone')
+                        ->setLabel('Apteczka utworzona')
                         ->setSortable(true),
                     (new FieldConfig)
                         ->setName('updated_at')
