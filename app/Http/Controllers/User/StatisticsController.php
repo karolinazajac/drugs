@@ -28,11 +28,13 @@ class StatisticsController extends Controller
      */
     public function index($id=null)
     {
+        $cabinetCost=null;
+        $drugUsage=null;
         $cabinetsList=Auth::user()->cabinets;
         $mainCabinet='Twoja pierwsza apteczka';
         if($cabinetsList->count() == 0 )
         {
-            return view('user.stats', compact( 'cabinetsList', 'mainCabinet'));
+            return view('user.stats', compact( 'cabinetsList', 'mainCabinet', 'cabinetCost', 'drugUsage'));
         }
         if(is_null($id)){
             $defaultCabinet=Auth::user()->cabinets()->where('main', true)->first();

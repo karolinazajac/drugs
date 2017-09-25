@@ -23,10 +23,17 @@
                             </div>
                         @endif
                     </div>
+                    @if($cabinetCost)
                     <div class="card-content" id="priceStat" data-keys="{{$cabinetCost->keys()}}" data-values="{{$cabinetCost->values()}}">
 
                         <canvas id="myChart" width="200" height="150"></canvas>
                     </div>
+                        @else
+                        <div class="card-content" id="priceStat" >
+
+                            Dodaj swoją apteczkę by śledzić jej koszty
+                        </div>
+                    @endif
                 </div>
                 <div class="card-footer">
                 </div>
@@ -36,9 +43,15 @@
                     <div class="card-header" data-background-color="blue">
                         <h4 class="nav-tabs-title">Miesięczne zużycie leków</h4>
                     </div>
+                    @if($drugUsage)
                     <div class="card-content" id="usageStat" data-keys="{{$drugUsage->keys()}}" data-values="{{$drugUsage->values()}}">
                         <canvas id="myChart2" width="200" height="150"></canvas>
                     </div>
+                        @else
+                        <div class="card-content" id="usageStat" >
+                            Dodaj swoje leki by śledzić ich konsumpcję
+                        </div>
+                        @endif
                 </div>
                 <div class="card-footer">
                 </div>

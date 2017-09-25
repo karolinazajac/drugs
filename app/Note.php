@@ -23,7 +23,7 @@ class Note extends Model
 
     public function images()
 {
-    return $this->belongsTo( 'App\Image');
+    return $this->belongsToMany( 'App\Image');
 }
 
     public function users()

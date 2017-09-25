@@ -193,25 +193,30 @@ class DrugsController extends Controller
     {
 
         if($request->hasFile('import_file')){
-            $path = $request->file('import_file')->getRealPath();
+            try {
+                $path = $request->file('import_file')->getRealPath();
 
-            $data = Excel::load($path, function($reader) {})->get();
+                $data = Excel::load($path, function($reader) {})->get();
 
-            if(!empty($data) && $data->count()){
+                if(!empty($data) && $data->count()){
 
-                foreach ($data->toArray() as $key => $value) {
-                    if(!empty($value)){
-                        foreach ($value as $v) {
-                            $insert[] = ['ean' => $v['ean'], 'name' => $v['name'], 'manufacturer' => $v['manufacturer'], 'package' => $v['package'], 'dose' => $v['dose'], 'character' => $v['character'], 'basyl' => $v['basyl']];
+                    foreach ($data->toArray() as $key => $value) {
+                        if(!empty($value)){
+                            foreach ($value as $v) {
+                                $insert[] = ['ean' => $v['ean'], 'name' => $v['name'], 'manufacturer' => $v['manufacturer'], 'package' => $v['package'], 'dose' => $v['dose'], 'character' => $v['character'], 'basyl' => $v['basyl']];
+                            }
                         }
                     }
-                }
 
-                if(!empty($insert)){
-                    Drug::insert($insert);
-                    return back()->with('success','Rekordy zostały pomyślnie dodane do tabeli :)');
+                    if(!empty($insert)){
+                        Drug::insert($insert);
+                        return back()->with('success','Rekordy zostały pomyślnie dodane do tabeli :)');
+                    }
                 }
+            }catch(Exception $e) {
+                return back()->with('error','Sprawdź importowany plik, coś jest z nim nie tak :(');
             }
+
         }
         return back()->with('error','Sprawdź importowany plik, coś jest z nim nie tak :(');
     }

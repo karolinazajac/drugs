@@ -2380,7 +2380,6 @@ select.form-control[multiple], .form-group.is-focused select.form-control[multip
   margin-bottom: 0;
   margin-left: 10px;
   padding: 0;
-  width: 15px;
 }
 .table .radio .icons,
 .table .checkbox .icons {

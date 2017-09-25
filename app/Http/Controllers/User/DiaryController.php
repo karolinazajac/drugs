@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Controller;
 use App\Note;
 use App\Image;
 use Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DiaryController extends Controller
 {
@@ -46,7 +49,7 @@ class DiaryController extends Controller
         $note->save();
 
         if(!is_null( request()->file('image'))){
-            request()->file('image')->store('images');
+            request()->file('image')->store('public');
             $image = new Image;
                 // ensure every image has a different name
             $file_name = $request->file('image')->hashName();
@@ -62,15 +65,28 @@ class DiaryController extends Controller
         return back();
     }
 
-    public function editeNote(Request $request, $id)
+    public function getNote( $id)
     {
         $note = Note::findOrFail($id);
-        $note->title = $request->title;
-        $note->body = $request->body;
-        $note->save();
 
-        return back();
+        return view('user.note', compact( 'note'));
     }
+//    public function getImage($filename)
+//    {
+//        $path = storage_path('public/' . $filename);
+//
+//        if (!File::exists($path)) {
+//            abort(404);
+//        }
+//
+//        $file = File::get($path);
+//        $type = File::mimeType($path);
+//
+//        $response = Response::make($file, 200);
+//        $response->header("Content-Type", $type);
+//
+//        return $response;
+//    }
 
     public function deleteNote ($id)
     {
