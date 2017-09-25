@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\CabinetDrug;
 use App\Cabinet;
+use App\DrugConsumption;
 use Auth;
 use Carbon\Carbon;
 
@@ -31,6 +32,7 @@ class StatisticsController extends Controller
         $cabinetCost=null;
         $drugUsage=null;
         $cabinetsList=Auth::user()->cabinets;
+        $userId= Auth::user()->id;
         $mainCabinet='Twoja pierwsza apteczka';
         if($cabinetsList->count() == 0 )
         {
@@ -49,8 +51,8 @@ class StatisticsController extends Controller
             ->selectRaw('month(created_at)as month, sum(price) as price ')
             ->groupBy('month')
             ->pluck('price', 'month');
-        $drugUsage = CabinetDrug::lastSixMonths($id)
-            ->selectRaw('month(created_at)as month, sum(quantity) as quantity ')
+        $drugUsage = DrugConsumption::lastSixMonths($userId)
+            ->selectRaw('month(created_at)as month, sum(amount) as quantity ')
             ->groupBy('month')
             ->pluck('quantity', 'month');
         return view('user.stats', compact( 'cabinetsList', 'mainCabinet', 'cabinetCost', 'drugUsage'));

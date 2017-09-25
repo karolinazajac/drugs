@@ -8,7 +8,7 @@
             <div class="col-md-6 col-xs-12">
                 <div class="card">
                     <div class="card-header" data-background-color="blue">
-                        <h4 class="nav-tabs-title">Miesięczne wydatki na leki</h4>
+                        <h4 class="nav-tabs-title">{{$mainCabinet!='Twoja pierwsza apteczka'?$mainCabinet->cabinet_name:"Miesięczny koszt lekarstw"}}</h4>
                         @if($cabinetsList->count() > 0 )
                             <div class=" dropdown " id="cabinet-list">
                                 <a href="#" class="btn btn-info btn-round dropdown-toggle " id="cabinetsList" data-toggle="dropdown">

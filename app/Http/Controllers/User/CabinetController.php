@@ -12,6 +12,7 @@ use App\User;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\DrugConsumption;
 
 
 class CabinetController extends Controller
@@ -116,6 +117,15 @@ class CabinetController extends Controller
     public function editDrug (Request $request, $id)
     {
         $cabinetDrug = CabinetDrug::findOrFail($id);
+        $initialQuantity= $cabinetDrug->quantity;
+        $newQuantity= $request->input('updatedQuantity');
+        if($initialQuantity > $newQuantity ){
+            $consumption = new DrugConsumption;
+            $consumption->user_id = Auth::user()->id;
+            $consumption->cabinet_drugs_id = $id;
+            $consumption->amount = $initialQuantity - $newQuantity;
+            $consumption->save();
+        }
         $cabinetDrug->quantity = $request->input('updatedQuantity');
         $cabinetDrug->save();
         return back();
