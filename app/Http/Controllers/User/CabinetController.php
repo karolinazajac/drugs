@@ -141,11 +141,15 @@ class CabinetController extends Controller
 
     public function addUser(Request $request, $cabinetId)
     {
-        dd(Input::get('newUser'));
         if(!is_null(Input::get('newUser'))){
 
                 $newUser=User::where('email',Input::get('newUser')) -> first();
+            if($newUser){
                 $newUser->cabinets()->attach($cabinetId);
+            }
+             else{
+                return back()->with('status', 'Użytkownik o takim adresie email nie założył konta w naszej aplikacji, więc nie możesz dodać go do swojej apteczki.');
+             }
         }
         return back();
     }

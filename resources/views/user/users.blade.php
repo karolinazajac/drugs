@@ -1,7 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('content')
-
+    @if (session('status'))
+        <div class="alert alert-danger">
+            {{ session('status') }}
+        </div>
+    @endif
     <div class="col-md-12">
         <h4 class="nav-tabs-title">Apteczki & Użytkownicy
             <button class="btn btn-primary btn-round pull-right" id="userInfo" data-toggle="modal" data-target="#userInfoModal">Moje Dane<div class="ripple-container"></div></button>
