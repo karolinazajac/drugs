@@ -58,10 +58,6 @@ class DiaryController extends Controller
             $note->images()->attach( $image->id);
             }
 
-// then in your view you reference the path like this:
-//            <img src="{{ asset('public/images/' . $model->image) }}">
-//            $note->images()->attach( $note->id);
-
         return back();
     }
 

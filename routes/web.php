@@ -36,7 +36,10 @@ Route::post('/cabinet/edit-drug/{id}', 'User\CabinetController@editDrug');
 Route::post('/cabinet/delete-user/{cabinetId}/{userId}', 'User\CabinetController@deleteCabinetUser');
 Route::post('/cabinet/delete-cabinet/{id}','User\CabinetController@deleteCabinet');
 Route::post('/cabinet/add-user/{cabinetId}', 'User\CabinetController@addUser');
-//Route::get('/storage/{filename}', 'User\DiaryController@getImage');
+Route::get('/storage/{filename}', function ($filename)
+{
+    return Image::make(storage_path('public/' . $filename))->response();
+});
 
 Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin/home', 'Admin\HomeController@index');
