@@ -20,7 +20,9 @@
                             <p id="body">
 {{$note->body}}
                             </p>
-                            <img src="{{ asset('storage/' . $note->images->first()->path) }}">
+                            @if(!is_null($note->images->first()))
+                            <img src="{{ asset('img/' . $note->images->first()->path) }}">
+                                @endif
                         </div>
                     </div>
                 </div>

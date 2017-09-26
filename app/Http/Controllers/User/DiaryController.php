@@ -50,11 +50,13 @@ class DiaryController extends Controller
 
         if(!is_null( request()->file('image'))){
             request()->file('image')->store('public');
+
             $image = new Image;
                 // ensure every image has a different name
             $file_name = $request->file('image')->hashName();
             $image->path = $file_name;
             $image->save();
+            request()->file('image')->move(public_path("/img"),  $file_name);
             $note->images()->attach( $image->id);
             }
 
