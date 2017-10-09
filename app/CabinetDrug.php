@@ -16,7 +16,12 @@ class CabinetDrug extends Model
     protected $fillable = [
         'ean', 'cabinet_id', 'quantity', 'expiration_date', 'current_state', 'price'
     ];
-
+    /**
+     * Relations for cabinets, drugs ... tables
+     */
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function cabinet()
     {
         return $this->belongsTo('App\User');

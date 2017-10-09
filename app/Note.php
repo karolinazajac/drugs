@@ -21,11 +21,17 @@ class Note extends Model
     'title', 'body', 'user_id'
 ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function images()
 {
     return $this->belongsToMany( 'App\Image');
 }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function users()
 {
     return $this->belongsTo('App\User');

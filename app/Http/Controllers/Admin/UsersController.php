@@ -41,15 +41,18 @@ class UsersController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the users dashboard.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+        //get all users data
+        //wybierz wszystkich użytkowników
         $query = User
             ::select('users.*');
-
+        //build grid with users data
+        //zbuduj tabelę z użytkownikami
         $grid = new Grid(
             (new GridConfig)
                 # Grids name used as html id, caching key, filtering GET params prefix, etc

@@ -32,14 +32,15 @@ class DiaryController extends Controller
     public function index()
     {
         $notes=Auth::user()->notes;
-//        if($notes->count() == 0 )
-//        {
-//            return view('user.diary', compact( 'notes'));
-//        }
 
         return view('user.diary', compact( 'notes'));
     }
 
+    /**
+     * Create new note
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function createNote(Request $request)
     {
         $note = new Note;
@@ -63,29 +64,21 @@ class DiaryController extends Controller
         return back();
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getNote( $id)
     {
         $note = Note::findOrFail($id);
 
         return view('user.note', compact( 'note'));
     }
-//    public function getImage($filename)
-//    {
-//        $path = storage_path('public/' . $filename);
-//
-//        if (!File::exists($path)) {
-//            abort(404);
-//        }
-//
-//        $file = File::get($path);
-//        $type = File::mimeType($path);
-//
-//        $response = Response::make($file, 200);
-//        $response->header("Content-Type", $type);
-//
-//        return $response;
-//    }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deleteNote ($id)
     {
         $note = Note::findOrFail($id);

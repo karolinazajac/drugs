@@ -34,6 +34,8 @@ class CabinetController extends Controller
      */
     public function index($id=null)
     {
+        //get list of user's cabinets
+        //wybierz listę apteczek należącą do zalogowanego użytkownika
         $cabinetsList=Auth::user()->cabinets;
         $cabinetDrugs=null;
         $mainCabinet='Twoja pierwsza apteczka';
@@ -63,6 +65,11 @@ class CabinetController extends Controller
         return view('user.cabinet', compact( 'cabinetsList', 'mainCabinet', 'cabinetDrugs'));
     }
 
+    /**
+     * Get list of drugs for dropdown form
+     * Wybierz liste leków dla formularza
+     * @return mixed
+     */
     public function getDrugs()
     {
         $data = array();
@@ -75,6 +82,12 @@ class CabinetController extends Controller
         return \Response::json($data);
     }
 
+    /**
+     * Create new user cabinet
+     * Stwórz nowa apteczkę dla użytkownika
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function createCabinet(Request $request)
     {
         $cabinet = new Cabinet;
@@ -91,6 +104,12 @@ class CabinetController extends Controller
         return back();
     }
 
+    /**
+     * Add drug to cabinet
+     * Dodaj lek do apteczki
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function addDrug (Request $request)
     {
         $cabinetDrug = new CabinetDrug;
@@ -105,6 +124,12 @@ class CabinetController extends Controller
         return back();
     }
 
+    /**
+     * Delete drug from cabinet
+     * Usuń lek z apteczki
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deleteDrug ($id)
     {
         $cabinetDrug = CabinetDrug::findOrFail($id);
@@ -114,6 +139,13 @@ class CabinetController extends Controller
         return back();
     }
 
+    /**
+     * Edit amount of drug in cabinet
+     * Edytuj ilość leku w apteczce
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function editDrug (Request $request, $id)
     {
         $cabinetDrug = CabinetDrug::findOrFail($id);
@@ -131,6 +163,13 @@ class CabinetController extends Controller
         return back();
     }
 
+    /**
+     * Delete selected cabinet user
+     * Usuń uzytkownika apteczki
+     * @param $cabinetId
+     * @param $userId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deleteCabinetUser ($cabinetId, $userId)
     {
         $user = User::findOrFail($userId);
@@ -140,6 +179,12 @@ class CabinetController extends Controller
         return back();
     }
 
+    /**
+     * Delete cabinet
+     * Usuń apteczkę
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deleteCabinet ($id)
     {
         $cabinet = Cabinet::findOrFail($id);
@@ -149,6 +194,13 @@ class CabinetController extends Controller
         return back();
     }
 
+    /**
+     * Add new user to cabinet
+     * dodaj nowego użytkownika do istniejacej apteczki
+     * @param Request $request
+     * @param $cabinetId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function addUser(Request $request, $cabinetId)
     {
         if(!is_null(Input::get('newUser'))){

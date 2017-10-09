@@ -23,7 +23,7 @@ class StatisticsController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the statistics dashboard.
      *
      * @return \Illuminate\Http\Response
      */

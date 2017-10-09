@@ -21,6 +21,9 @@ class Image extends Model
         'path'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function notes()
     {
         return $this->belongsToMany('App\Note');

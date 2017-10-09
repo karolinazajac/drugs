@@ -27,11 +27,17 @@ class User extends Authenticatable
         'password', 'remember_token'
     ];
 
+    /**
+     * @return $this
+     */
     public function cabinets()
     {
         return $this->belongsToMany('App\Cabinet')->withPivot( 'main');
     }
 
+    /**
+     * @return \Illuminate\Database\Query\Builder|static
+     */
     public function notes()
     {
         return $this->hasMany('App\Note')->latest();

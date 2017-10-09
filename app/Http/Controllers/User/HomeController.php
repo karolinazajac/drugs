@@ -22,7 +22,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the cabinet dashboard.
      *
      * @return \Illuminate\Http\Response
      */

@@ -36,15 +36,17 @@ class DrugsController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the drugs dashboard.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+        //Get all drugs
         $query = Drug
             ::select('drugs.*');
-
+        //build grid with drugs data
+        //zbuduj tabele z lekami
         $grid = new Grid(
             (new GridConfig)
                 # Grids name used as html id, caching key, filtering GET params prefix, etc

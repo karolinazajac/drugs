@@ -17,6 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
+/**
+ * Routes for user dashboard
+ */
 Route::get('/home', 'User\HomeController@index');
 Route::get('/users', 'User\UsersController@index');
 Route::post('/users/edit/{id}', 'User\UsersController@edit');
@@ -41,6 +44,9 @@ Route::get('/storage/{filename}', function ($filename)
     return Image::make(storage_path('public/' . $filename))->response();
 });
 
+/**
+ * Routes for admin dashboard
+ */
 Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin/home', 'Admin\HomeController@index');
     Route::get('/admin/users', 'Admin\UsersController@index');

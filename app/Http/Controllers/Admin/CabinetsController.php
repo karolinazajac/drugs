@@ -35,17 +35,20 @@ class CabinetsController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the cabinets dashboard.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+        //Get list of user cabinets
+        //Wybierz listę apteczek użytkowników
         $query = Cabinet
             ::leftJoin('users', 'cabinets.user_id', '=','users.id')
         ->select('cabinets.*')
             ->addSelect('users.email as user_email');
-
+        //build grid with user cabinets
+        //zbuduj tabele apteczek
         $grid = new Grid(
             (new GridConfig)
                 # Grids name used as html id, caching key, filtering GET params prefix, etc

@@ -20,7 +20,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the users dashboard.
      *
      * @return \Illuminate\Http\Response
      */
@@ -36,6 +36,13 @@ class UsersController extends Controller
         return view('user.users', compact('cabinets', 'cabinetsList'));
     }
 
+    /**
+     * Edit logged user data
+     * Edytuj dane użytkownika
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function edit(Request $request, $id)
     {
         $user = User::findOrFail($id);
